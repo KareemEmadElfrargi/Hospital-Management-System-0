@@ -1,5 +1,7 @@
 package com.kareem.Hospital_Management_System.Service;
 
+import com.kareem.Hospital_Management_System.Entity.DTO.NurseShiftRequest;
+import com.kareem.Hospital_Management_System.Entity.Enum.ShiftType;
 import com.kareem.Hospital_Management_System.Entity.Nurse;
 import com.kareem.Hospital_Management_System.Entity.Shift;
 import com.kareem.Hospital_Management_System.Repository.NurseRepository;
@@ -17,16 +19,24 @@ public class ShiftService {
     private final NurseRepository nurseRepository;
 
 
-    public String assignShiftToNurse(String nurseNationalId, LocalDateTime start, LocalDateTime end){
+    public String assignShiftToNurse(NurseShiftRequest request){
 
-        Nurse nurse = nurseRepository.findByNationalId(nurseNationalId)
+        Nurse nurse = nurseRepository.findByNationalId(request.getNurseNationalId())
                 .orElseThrow(()->new RuntimeException("Nurse Not Found in Database"));
 
+        ShiftType shiftType;
+        try {
+            shiftType = ShiftType.valueOf(request.getType().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid shift type. Allowed: MORNING, EVENING, NIGHT");
+        }
         Shift shift = Shift.builder()
-                .startTime(start)
-                .endTime(end)
+                .startTime(request.getStart())
+                .endTime(request.getEnd())
+                .type(shiftType)
                 .nurse(nurse)
                 .build();
+
         shiftRepository.save(shift);
         return "Shift assigned to nurse";
 

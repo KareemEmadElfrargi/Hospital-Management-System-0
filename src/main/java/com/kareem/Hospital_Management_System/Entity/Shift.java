@@ -1,5 +1,6 @@
 package com.kareem.Hospital_Management_System.Entity;
 
+import com.kareem.Hospital_Management_System.Entity.Enum.ShiftType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,9 @@ public class Shift {
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
+    @Enumerated(EnumType.STRING)
+    private ShiftType type;
 
     @ManyToOne
     @JoinColumn(name = "nurse_national_id", referencedColumnName = "nationalId")
