@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/create-nurse").hasAuthority("ADMIN")
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/supervisor/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/shifts/**").hasAuthority("ADMIN")
                         .requestMatchers("/nurses/**").hasAuthority("NURSE")
                         .anyRequest().authenticated()

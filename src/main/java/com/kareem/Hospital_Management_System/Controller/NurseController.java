@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class NurseController {
     private final ShiftService shiftService;
 
-
     @GetMapping("/my-shifts")
     public ResponseEntity<?> getMyShifts(Authentication authentication) {
         String nationalId = authentication.getName();
         return ResponseEntity.ok(shiftService.getShiftsForNurse(nationalId));
     }
+
 }

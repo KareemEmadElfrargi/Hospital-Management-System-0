@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "nurses")
+@Table(name = "nurses_info")
 public class Nurse {
 
     @Id
@@ -25,5 +25,8 @@ public class Nurse {
     private Gender gender;
 
     private String address;
+
+    private double salary;
+    private double bonus;
 
 }
