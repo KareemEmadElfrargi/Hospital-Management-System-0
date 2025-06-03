@@ -1,5 +1,6 @@
 package com.kareem.Hospital_Management_System.Service;
 
+import com.kareem.Hospital_Management_System.Entity.DTO.NurseFinancialInfo;
 import com.kareem.Hospital_Management_System.Entity.Nurse;
 import com.kareem.Hospital_Management_System.Repository.NurseRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,12 @@ public class NurseService {
         nurse.setBonus(bonus);
         nurseRepository.save(nurse);
         return "Bonus added successfully";
+    }
+
+    public NurseFinancialInfo getMyFinancialInfo(String nationalId){
+        Nurse nurse = nurseRepository.findByNationalId(nationalId)
+                .orElseThrow(() -> new RuntimeException("Nurse not found"));
+
+        return new NurseFinancialInfo(nurse.getSalary(), nurse.getBonus());
     }
 }

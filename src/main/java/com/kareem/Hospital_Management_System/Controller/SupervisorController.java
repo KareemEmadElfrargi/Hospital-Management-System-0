@@ -6,6 +6,7 @@ import com.kareem.Hospital_Management_System.Service.NurseService;
 import com.kareem.Hospital_Management_System.Service.ShiftService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,7 +28,7 @@ public class SupervisorController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/set-compensation")
+    @PostMapping("/set-bonus")
     public ResponseEntity<String> setCompensation(@RequestBody NurseCompensationRequest request) {
         String result = nurseService.setBonus(
                 request.getNurseNationalId(),
@@ -35,6 +36,13 @@ public class SupervisorController {
         );
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/my-financial-info")
+    public ResponseEntity<?> getMyFinancialInfo(Authentication authentication) {
+        String nationalId = authentication.getName();
+        return ResponseEntity.ok(nurseService.getMyFinancialInfo(nationalId));
+    }
+
 
 
 }
