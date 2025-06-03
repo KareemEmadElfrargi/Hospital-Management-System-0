@@ -55,7 +55,7 @@ public class AuthenticationService {
         return "Nurse created successfully";
     }
 
-    public LoginResponse login(LoginRequest request) {
+    public String login(LoginRequest request) {
         User user = userRepository.findByNationalId(request.getNationalId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -63,8 +63,7 @@ public class AuthenticationService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        String token = jwtService.generateToken(user.getNationalId());
-        return new LoginResponse(token);
+        return jwtService.generateToken(user.getNationalId());
     }
 
 

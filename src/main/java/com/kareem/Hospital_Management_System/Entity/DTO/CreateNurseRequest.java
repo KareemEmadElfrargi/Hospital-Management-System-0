@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class CreateNurseRequest {
-
     private String name;
     private String nationalId;
     private String password;

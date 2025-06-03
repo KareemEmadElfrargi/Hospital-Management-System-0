@@ -20,8 +20,8 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        LoginResponse response = authenticationService.login(request);
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+        String response = authenticationService.login(request);
         return ResponseEntity.ok(response);
     }
 
