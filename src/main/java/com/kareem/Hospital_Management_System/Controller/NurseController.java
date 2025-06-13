@@ -17,6 +17,7 @@ public class NurseController {
     @GetMapping("/my-shifts")
     public ResponseEntity<?> getMyShifts(Authentication authentication) {
         String nationalId = authentication.getName();
+        System.out.println(nationalId);
         return ResponseEntity.ok(shiftService.getShiftsForNurse(nationalId));
     }
 
